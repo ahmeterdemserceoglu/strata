@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+﻿import React, { useState, useEffect, useRef } from 'react';
 import {
   Hash,
   Volume2,
@@ -57,7 +57,7 @@ interface Message {
 }
 
 export function App() {
-  const apiUrl = (import.meta.env.VITE_API_URL || 'http://localhost:4000').replace(/\/+$/, '');
+  const apiUrl = (import.meta.env.VITE_API_URL || 'https://strata-api-fy4r.onrender.com').replace(/\/+$/, '');
   const gatewayUrl =
     import.meta.env.VITE_GATEWAY_URL ||
     apiUrl.replace(/^http/, 'ws');
@@ -138,7 +138,7 @@ export function App() {
     return () => clearInterval(timer);
   }, [apiUrl]);
 
-  // Otomatik oturum doğrulama ve token yenileme
+  // Otomatik oturum doÄŸrulama ve token yenileme
   useEffect(() => {
     if (!authData) return;
 
@@ -170,7 +170,7 @@ export function App() {
           handleLogout();
         }
       } catch {
-        // Sunucu geçici olarak kapalıysa oturumu silme
+        // Sunucu geÃ§ici olarak kapalÄ±ysa oturumu silme
       }
     };
 
@@ -221,7 +221,7 @@ export function App() {
           }
         }
 
-        // Hiç sunucu yoksa ilk varsayılan sunucuyu oluştur
+        // HiÃ§ sunucu yoksa ilk varsayÄ±lan sunucuyu oluÅŸtur
         const createRes = await fetch(`${apiUrl}/api/v1/guilds`, {
           method: 'POST',
           headers: {
@@ -358,7 +358,7 @@ export function App() {
           body: JSON.stringify({ name: newGuildName.trim() })
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.message || 'Sunucu oluşturulamadı.');
+        if (!res.ok) throw new Error(data.message || 'Sunucu oluÅŸturulamadÄ±.');
 
         setGuilds((prev) => [...prev, data.guild]);
         setActiveGuild(data.guild);
@@ -373,7 +373,7 @@ export function App() {
           }
         });
         const data = await res.json();
-        if (!res.ok) throw new Error(data.message || 'Davet kodu geçersiz.');
+        if (!res.ok) throw new Error(data.message || 'Davet kodu geÃ§ersiz.');
 
         setGuilds((prev) => {
           if (prev.some((g) => g.id === data.guild.id)) return prev;
@@ -384,7 +384,7 @@ export function App() {
         setJoinInviteCode('');
       }
     } catch (err: unknown) {
-      setModalError(err instanceof Error ? err.message : 'İşlem başarısız.');
+      setModalError(err instanceof Error ? err.message : 'Ä°ÅŸlem baÅŸarÄ±sÄ±z.');
     }
   };
 
@@ -417,7 +417,7 @@ export function App() {
 
   return (
     <div className="flex h-screen w-screen overflow-hidden bg-strata-darkest text-strata-textNormal font-sans select-none">
-      {/* 1. SÜTUN: SUNUCU ÇUBUĞU */}
+      {/* 1. SÃœTUN: SUNUCU Ã‡UBUÄU */}
       <div className="flex w-[72px] flex-col items-center gap-2 border-r border-strata-border/40 bg-strata-darkest py-3">
         <button
           onClick={() => {}}
@@ -461,21 +461,21 @@ export function App() {
               setShowCreateGuild(true);
             }}
             className="group flex h-12 w-12 items-center justify-center rounded-3xl bg-strata-panel text-emerald-400 transition-all duration-200 hover:rounded-2xl hover:bg-emerald-600 hover:text-white"
-            title="Sunucu Oluştur veya Katıl"
+            title="Sunucu OluÅŸtur veya KatÄ±l"
           >
             <Plus className="h-6 w-6" />
           </button>
         </div>
       </div>
 
-      {/* 2. SÜTUN: KANAL SÜTUNU & KULLANICI PROFİLİ */}
+      {/* 2. SÃœTUN: KANAL SÃœTUNU & KULLANICI PROFÄ°LÄ° */}
       <div className="flex w-60 flex-col border-r border-strata-border/40 bg-strata-darker">
         <div className="flex h-12 items-center justify-between border-b border-strata-border/40 px-4 font-bold shadow-sm">
           <span className="truncate text-sm text-white">{activeGuild?.name || 'Strata'}</span>
           <button
             onClick={handleCreateInvite}
             className="p-1.5 rounded-lg text-zinc-400 hover:text-white hover:bg-strata-panel transition-colors"
-            title="Arkadaşlarını Davet Et (Kod Oluştur)"
+            title="ArkadaÅŸlarÄ±nÄ± Davet Et (Kod OluÅŸtur)"
           >
             <UserPlus className="h-4 w-4" />
           </button>
@@ -484,7 +484,7 @@ export function App() {
         {inviteCode && (
           <div className="mx-3 mt-2 rounded-xl bg-indigo-600/15 border border-indigo-500/30 p-2.5 text-xs">
             <div className="flex items-center justify-between text-indigo-300 font-semibold mb-1">
-              <span>Davet Kodu Hazır!</span>
+              <span>Davet Kodu HazÄ±r!</span>
               <button
                 onClick={() => {
                   navigator.clipboard?.writeText(inviteCode);
@@ -494,7 +494,7 @@ export function App() {
                 className="flex items-center gap-1 text-[11px] hover:text-white"
               >
                 {copiedInvite ? <Check className="h-3.5 w-3.5 text-emerald-400" /> : <Copy className="h-3.5 w-3.5" />}
-                {copiedInvite ? 'Kopyalandı' : 'Kopyala'}
+                {copiedInvite ? 'KopyalandÄ±' : 'Kopyala'}
               </button>
             </div>
             <div className="font-mono text-white bg-black/30 rounded px-2 py-1 text-center tracking-wider select-all">
@@ -506,7 +506,7 @@ export function App() {
         <div className="flex-1 space-y-4 overflow-y-auto p-3 text-xs">
           <div>
             <div className="mb-1 px-1 font-semibold uppercase tracking-wider text-strata-textMuted">
-              Metin Kanalları
+              Metin KanallarÄ±
             </div>
             <div className="space-y-0.5">
               {textChannels.map((c) => {
@@ -532,7 +532,7 @@ export function App() {
           {voiceChannels.length > 0 && (
             <div>
               <div className="mb-1 px-1 font-semibold uppercase tracking-wider text-strata-textMuted">
-                Ses Kanalları
+                Ses KanallarÄ±
               </div>
               <div className="space-y-0.5">
                 {voiceChannels.map((c) => (
@@ -549,7 +549,7 @@ export function App() {
           )}
         </div>
 
-        {/* Kullanıcı Paneli */}
+        {/* KullanÄ±cÄ± Paneli */}
         <div className="flex h-14 items-center justify-between border-t border-strata-border/40 bg-strata-darkest/70 px-3">
           <div className="flex items-center gap-2 overflow-hidden">
             <div className="relative flex h-8 w-8 items-center justify-center rounded-full bg-indigo-600 font-bold text-white text-xs shrink-0">
@@ -568,21 +568,21 @@ export function App() {
             <button
               onClick={() => setIsMuted(!isMuted)}
               className={`p-1.5 rounded hover:bg-strata-panel transition-colors ${isMuted ? 'text-red-400' : ''}`}
-              title={isMuted ? 'Mikrofonu Aç' : 'Mikrofonu Kapat'}
+              title={isMuted ? 'Mikrofonu AÃ§' : 'Mikrofonu Kapat'}
             >
               {isMuted ? <MicOff className="h-4 w-4" /> : <Mic className="h-4 w-4" />}
             </button>
             <button
               onClick={() => setIsDeafened(!isDeafened)}
               className={`p-1.5 rounded hover:bg-strata-panel transition-colors ${isDeafened ? 'text-red-400' : ''}`}
-              title={isDeafened ? 'Sağırlaştırmayı Kapat' : 'Sağırlaştır'}
+              title={isDeafened ? 'SaÄŸÄ±rlaÅŸtÄ±rmayÄ± Kapat' : 'SaÄŸÄ±rlaÅŸtÄ±r'}
             >
               <Headphones className="h-4 w-4" />
             </button>
             <button
               onClick={handleLogout}
               className="p-1.5 rounded hover:bg-strata-panel hover:text-red-400 transition-colors"
-              title="Çıkış Yap"
+              title="Ã‡Ä±kÄ±ÅŸ Yap"
             >
               <LogOut className="h-4 w-4" />
             </button>
@@ -590,7 +590,7 @@ export function App() {
         </div>
       </div>
 
-      {/* 3. SÜTUN: SOHBET VE MESAJ ALANI */}
+      {/* 3. SÃœTUN: SOHBET VE MESAJ ALANI */}
       <div className="flex flex-1 flex-col bg-strata-dark">
         <div className="flex h-12 items-center justify-between border-b border-strata-border/40 px-4 shadow-sm">
           <div className="flex items-center gap-2">
@@ -602,7 +602,7 @@ export function App() {
           </div>
           <div className="flex items-center gap-1.5 text-xs text-zinc-400">
             <Users className="h-4 w-4" />
-            <span>{members.length || 1} Üye</span>
+            <span>{members.length || 1} Ãœye</span>
           </div>
         </div>
 
@@ -610,8 +610,8 @@ export function App() {
           {messages.length === 0 ? (
             <div className="flex h-full flex-col items-center justify-center text-center text-strata-textMuted">
               <MessageSquare className="h-12 w-12 text-zinc-700 mb-2" />
-              <p className="text-base font-semibold text-white">#{activeChannel?.name || 'genel'} kanalına hoş geldin!</p>
-              <p className="text-xs">İlk mesajı gönderen sen ol.</p>
+              <p className="text-base font-semibold text-white">#{activeChannel?.name || 'genel'} kanalÄ±na hoÅŸ geldin!</p>
+              <p className="text-xs">Ä°lk mesajÄ± gÃ¶nderen sen ol.</p>
             </div>
           ) : (
             messages.map((m) => {
@@ -619,7 +619,7 @@ export function App() {
               const isMine = m.authorId === authData.user.id;
               const authorLabel = isMine
                 ? authData.user.displayName || authData.user.username
-                : m.authorDisplayName || m.authorUsername || `Kullanıcı_${m.authorId.slice(-4)}`;
+                : m.authorDisplayName || m.authorUsername || `KullanÄ±cÄ±_${m.authorId.slice(-4)}`;
               const avatarInitials = authorLabel.slice(0, 2).toUpperCase();
 
               return (
@@ -651,7 +651,7 @@ export function App() {
               type="text"
               value={inputText}
               onChange={(e) => setInputText(e.target.value)}
-              placeholder={`#${activeChannel?.name || 'genel'} kanalına mesaj gönder...`}
+              placeholder={`#${activeChannel?.name || 'genel'} kanalÄ±na mesaj gÃ¶nder...`}
               className="w-full rounded-2xl border border-strata-border/60 bg-strata-panel/70 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-indigo-500 focus:outline-none pr-12 shadow-inner"
             />
             <button
@@ -665,10 +665,10 @@ export function App() {
         </div>
       </div>
 
-      {/* 4. SÜTUN: ÜYE LİSTESİ */}
+      {/* 4. SÃœTUN: ÃœYE LÄ°STESÄ° */}
       <div className="hidden lg:flex w-56 flex-col border-l border-strata-border/40 bg-strata-darker p-3">
         <div className="mb-2 px-2 text-xs font-semibold uppercase tracking-wider text-strata-textMuted">
-          Üyeler — {members.length || 1}
+          Ãœyeler â€” {members.length || 1}
         </div>
         <div className="flex-1 space-y-1 overflow-y-auto">
           {members.map((mem) => (
@@ -691,7 +691,7 @@ export function App() {
         </div>
       </div>
 
-      {/* Sunucu Oluştur / Katıl Modal */}
+      {/* Sunucu OluÅŸtur / KatÄ±l Modal */}
       {showCreateGuild && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
           <div className="w-full max-w-sm rounded-2xl border border-strata-border bg-strata-panel p-6 shadow-2xl">
@@ -706,7 +706,7 @@ export function App() {
                   guildModalTab === 'create' ? 'bg-indigo-600 text-white' : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                Sunucu Oluştur
+                Sunucu OluÅŸtur
               </button>
               <button
                 type="button"
@@ -718,7 +718,7 @@ export function App() {
                   guildModalTab === 'join' ? 'bg-indigo-600 text-white' : 'text-zinc-400 hover:text-white'
                 }`}
               >
-                Davet İle Katıl
+                Davet Ä°le KatÄ±l
               </button>
             </div>
 
@@ -731,13 +731,13 @@ export function App() {
             <form onSubmit={handleGuildModalSubmit} className="space-y-4">
               {guildModalTab === 'create' ? (
                 <div>
-                  <label className="text-xs font-semibold uppercase text-strata-textMuted">Sunucu Adı</label>
+                  <label className="text-xs font-semibold uppercase text-strata-textMuted">Sunucu AdÄ±</label>
                   <input
                     type="text"
                     required
                     value={newGuildName}
                     onChange={(e) => setNewGuildName(e.target.value)}
-                    placeholder="Örn: Oyun Grubu"
+                    placeholder="Ã–rn: Oyun Grubu"
                     className="mt-1 w-full rounded-xl border border-strata-border bg-strata-darkest px-3 py-2 text-sm text-white focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
@@ -749,7 +749,7 @@ export function App() {
                     required
                     value={joinInviteCode}
                     onChange={(e) => setJoinInviteCode(e.target.value)}
-                    placeholder="Örn: a8f3k9x2"
+                    placeholder="Ã–rn: a8f3k9x2"
                     className="mt-1 w-full rounded-xl border border-strata-border bg-strata-darkest px-3 py-2 text-sm text-white font-mono focus:border-indigo-500 focus:outline-none"
                   />
                 </div>
@@ -761,13 +761,13 @@ export function App() {
                   onClick={() => setShowCreateGuild(false)}
                   className="rounded-xl px-4 py-2 text-xs font-medium text-zinc-400 hover:text-white"
                 >
-                  İptal
+                  Ä°ptal
                 </button>
                 <button
                   type="submit"
                   className="rounded-xl bg-indigo-600 px-4 py-2 text-xs font-semibold text-white hover:bg-indigo-500 shadow-md shadow-indigo-600/30"
                 >
-                  {guildModalTab === 'create' ? 'Oluştur' : 'Katıl'}
+                  {guildModalTab === 'create' ? 'OluÅŸtur' : 'KatÄ±l'}
                 </button>
               </div>
             </form>
@@ -777,4 +777,5 @@ export function App() {
     </div>
   );
 }
+
 

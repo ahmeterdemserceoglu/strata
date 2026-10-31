@@ -1,4 +1,4 @@
-import Fastify, { type FastifyInstance, type FastifyRequest } from 'fastify';
+﻿import Fastify, { type FastifyInstance, type FastifyRequest } from 'fastify';
 import cors from '@fastify/cors';
 import cookie from '@fastify/cookie';
 import helmet from '@fastify/helmet';
@@ -56,7 +56,7 @@ export function buildServer(
         reply.header('Retry-After', result.resetSeconds.toString());
         return reply.status(429).send({
           code: 'RATE_LIMITED',
-          message: 'Çok fazla istek yapıldı. Lütfen daha sonra tekrar deneyin.'
+          message: 'Ã‡ok fazla istek yapÄ±ldÄ±. LÃ¼tfen daha sonra tekrar deneyin.'
         });
       }
     }
@@ -68,7 +68,7 @@ export function buildServer(
     const status = err.statusCode || 400;
     const response: ApiError = {
       code: err.code || 'BAD_REQUEST',
-      message: err.message || 'Bir hata oluştu.'
+      message: err.message || 'Bir hata oluÅŸtu.'
     };
     return reply.status(status).send(response);
   });
@@ -77,12 +77,12 @@ export function buildServer(
   async function authenticateUser(req: FastifyRequest) {
     const authHeader = req.headers.authorization;
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      throw { statusCode: 401, code: 'UNAUTHORIZED', message: 'Yetkilendirme başlığı eksik.' };
+      throw { statusCode: 401, code: 'UNAUTHORIZED', message: 'Yetkilendirme baÅŸlÄ±ÄŸÄ± eksik.' };
     }
     const token = authHeader.substring(7);
     const claims = await verifyAccessToken(token);
     if (!claims) {
-      throw { statusCode: 401, code: 'UNAUTHORIZED', message: 'Geçersiz veya süresi dolmuş token.' };
+      throw { statusCode: 401, code: 'UNAUTHORIZED', message: 'GeÃ§ersiz veya sÃ¼resi dolmuÅŸ token.' };
     }
     return claims;
   }
@@ -103,7 +103,7 @@ export function buildServer(
     if (!parse.success) {
       return reply.status(400).send({
         code: 'VALIDATION_ERROR',
-        message: parse.error.issues[0]?.message || 'Doğrulama hatası',
+        message: parse.error.issues[0]?.message || 'DoÄŸrulama hatasÄ±',
         errors: parse.error.issues.map((i) => ({ field: i.path.join('.'), message: i.message }))
       });
     }
@@ -133,7 +133,7 @@ export function buildServer(
         user: result.user
       });
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Kayıt başarısız.';
+      const message = err instanceof Error ? err.message : 'KayÄ±t baÅŸarÄ±sÄ±z.';
       return reply.status(400).send({ code: 'REGISTRATION_FAILED', message });
     }
   });
@@ -143,7 +143,7 @@ export function buildServer(
     if (!parse.success) {
       return reply.status(400).send({
         code: 'VALIDATION_ERROR',
-        message: parse.error.issues[0]?.message || 'Doğrulama hatası',
+        message: parse.error.issues[0]?.message || 'DoÄŸrulama hatasÄ±',
         errors: parse.error.issues.map((i) => ({ field: i.path.join('.'), message: i.message }))
       });
     }
@@ -174,7 +174,7 @@ export function buildServer(
         user: tokens.user
       });
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Giriş başarısız.';
+      const message = err instanceof Error ? err.message : 'GiriÅŸ baÅŸarÄ±sÄ±z.';
       return reply.status(401).send({ code: 'INVALID_CREDENTIALS', message });
     }
   });
@@ -183,7 +183,7 @@ export function buildServer(
     const claims = await authenticateUser(req);
     const user = await store.findUserById(claims.sub);
     if (!user) {
-      return reply.status(404).send({ code: 'USER_NOT_FOUND', message: 'Kullanıcı bulunamadı.' });
+      return reply.status(404).send({ code: 'USER_NOT_FOUND', message: 'KullanÄ±cÄ± bulunamadÄ±.' });
     }
     return {
       user: {
@@ -202,7 +202,7 @@ export function buildServer(
     if (!parse.success) {
       return reply.status(400).send({
         code: 'VALIDATION_ERROR',
-        message: parse.error.issues[0]?.message || 'Doğrulama hatası',
+        message: parse.error.issues[0]?.message || 'DoÄŸrulama hatasÄ±',
         errors: parse.error.issues.map((i) => ({ field: i.path.join('.'), message: i.message }))
       });
     }
@@ -225,7 +225,7 @@ export function buildServer(
         user: tokens.user
       });
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'MFA doğrulaması başarısız.';
+      const message = err instanceof Error ? err.message : 'MFA doÄŸrulamasÄ± baÅŸarÄ±sÄ±z.';
       return reply.status(401).send({ code: 'MFA_FAILED', message });
     }
   });
@@ -238,7 +238,7 @@ export function buildServer(
     if (!rawToken) {
       return reply.status(401).send({
         code: 'MISSING_TOKEN',
-        message: 'Yenileme belirteci bulunamadı.'
+        message: 'Yenileme belirteci bulunamadÄ±.'
       });
     }
 
@@ -259,7 +259,7 @@ export function buildServer(
         expiresIn: result.expiresInSeconds
       });
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Yenileme başarısız.';
+      const message = err instanceof Error ? err.message : 'Yenileme baÅŸarÄ±sÄ±z.';
       return reply.status(401).send({ code: 'REFRESH_FAILED', message });
     }
   });
@@ -298,7 +298,7 @@ export function buildServer(
     const session = await store.findSessionById(id);
 
     if (!session || session.userId !== claims.sub) {
-      return reply.status(404).send({ code: 'SESSION_NOT_FOUND', message: 'Oturum bulunamadı.' });
+      return reply.status(404).send({ code: 'SESSION_NOT_FOUND', message: 'Oturum bulunamadÄ±.' });
     }
 
     await store.revokeSession(id);
@@ -333,7 +333,7 @@ export function buildServer(
     }
 
     await authService.enableMfa(claims.sub, code);
-    return { success: true, message: 'İki faktörlü doğrulama başarıyla aktifleştirildi.' };
+    return { success: true, message: 'Ä°ki faktÃ¶rlÃ¼ doÄŸrulama baÅŸarÄ±yla aktifleÅŸtirildi.' };
   });
 
   server.post('/api/v1/users/@me/mfa/totp/disable', async (req, reply) => {
@@ -344,7 +344,7 @@ export function buildServer(
     }
 
     await authService.disableMfa(claims.sub, code);
-    return { success: true, message: 'İki faktörlü doğrulama devre dışı bırakıldı.' };
+    return { success: true, message: 'Ä°ki faktÃ¶rlÃ¼ doÄŸrulama devre dÄ±ÅŸÄ± bÄ±rakÄ±ldÄ±.' };
   });
 
   // ---------------------------------------------------------------------------
@@ -360,7 +360,7 @@ export function buildServer(
     const claims = await authenticateUser(req);
     const { name } = (req.body as { name?: string }) || {};
     if (!name || name.trim().length < 2) {
-      return reply.status(400).send({ code: 'INVALID_NAME', message: 'Sunucu adı en az 2 karakter olmalıdır.' });
+      return reply.status(400).send({ code: 'INVALID_NAME', message: 'Sunucu adÄ± en az 2 karakter olmalÄ±dÄ±r.' });
     }
 
     const { guild, defaultChannelId } = await guildService.createGuild(claims.sub, name.trim());
@@ -371,7 +371,7 @@ export function buildServer(
     await authenticateUser(req);
     const { id } = req.params as { id: string };
     const guild = guildService.getGuild(id);
-    if (!guild) return reply.status(404).send({ code: 'NOT_FOUND', message: 'Sunucu bulunamadı.' });
+    if (!guild) return reply.status(404).send({ code: 'NOT_FOUND', message: 'Sunucu bulunamadÄ±.' });
     return guild;
   });
 
@@ -379,7 +379,7 @@ export function buildServer(
     await authenticateUser(req);
     const { id } = req.params as { id: string };
     const guild = guildService.getGuild(id);
-    if (!guild) return reply.status(404).send({ code: 'NOT_FOUND', message: 'Sunucu bulunamadı.' });
+    if (!guild) return reply.status(404).send({ code: 'NOT_FOUND', message: 'Sunucu bulunamadÄ±.' });
 
     const members = guildService.members.get(id) || [];
     const enriched = await Promise.all(
@@ -416,7 +416,7 @@ export function buildServer(
       const invite = guildService.createInvite(id, claims.sub);
       return reply.status(201).send({ invite });
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Davet oluşturulamadı.';
+      const message = err instanceof Error ? err.message : 'Davet oluÅŸturulamadÄ±.';
       return reply.status(403).send({ code: 'FORBIDDEN', message });
     }
   });
@@ -428,7 +428,7 @@ export function buildServer(
       const result = guildService.joinViaInvite(code.trim(), claims.sub);
       return reply.status(200).send(result);
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Davet bağlantısına katılım başarısız.';
+      const message = err instanceof Error ? err.message : 'Davet baÄŸlantÄ±sÄ±na katÄ±lÄ±m baÅŸarÄ±sÄ±z.';
       return reply.status(400).send({ code: 'INVITE_FAILED', message });
     }
   });
@@ -442,7 +442,7 @@ export function buildServer(
     const { content, nonce, message_reference } = (req.body as any) || {};
 
     if (!content || typeof content !== 'string' || content.trim().length === 0) {
-      return reply.status(400).send({ code: 'INVALID_CONTENT', message: 'Mesaj içeriği boş olamaz.' });
+      return reply.status(400).send({ code: 'INVALID_CONTENT', message: 'Mesaj iÃ§eriÄŸi boÅŸ olamaz.' });
     }
 
     try {
@@ -475,7 +475,7 @@ export function buildServer(
 
       return reply.status(result.duplicate ? 200 : 201).send(outgoingMessage);
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Mesaj gönderilemedi.';
+      const message = err instanceof Error ? err.message : 'Mesaj gÃ¶nderilemedi.';
       return reply.status(400).send({ code: 'SEND_FAILED', message });
     }
   });
@@ -523,7 +523,7 @@ export function buildServer(
     const { content } = (req.body as any) || {};
 
     if (!content || typeof content !== 'string') {
-      return reply.status(400).send({ code: 'INVALID_CONTENT', message: 'İçerik gereklidir.' });
+      return reply.status(400).send({ code: 'INVALID_CONTENT', message: 'Ä°Ã§erik gereklidir.' });
     }
 
     try {
@@ -534,7 +534,7 @@ export function buildServer(
         editedAt: updated.editedAt
       };
     } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : 'Mesaj düzenlenemedi.';
+      const message = err instanceof Error ? err.message : 'Mesaj dÃ¼zenlenemedi.';
       return reply.status(403).send({ code: 'FORBIDDEN', message });
     }
   });
@@ -562,4 +562,5 @@ export function buildServer(
 
   return server;
 }
+
 

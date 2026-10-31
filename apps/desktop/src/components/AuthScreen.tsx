@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
+import { Titlebar } from './Titlebar';
 
 export interface AuthenticatedUser {
   id: string;
@@ -183,9 +184,9 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
     document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
 
     try {
-      getCurrentWindow()
-        .setTheme(dark ? 'dark' : 'light')
-        .catch(() => {});
+      const win = getCurrentWindow();
+      win.setDecorations(false).catch(() => {});
+      win.setTheme(dark ? 'dark' : 'light').catch(() => {});
     } catch {
       // Tarayıcı ortamında Tauri penceresi yoksa yoksay
     }
@@ -304,45 +305,13 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
 
   return (
     <div
-      className={`relative min-h-screen w-full overflow-hidden flex items-center justify-center px-6 py-10 select-none transition-colors duration-200 ${
-        dark ? 'bg-[#202020] text-[#F3F4F8]' : 'bg-[#F3F3F3] text-[#1E1B2E]'
+      className={`relative h-screen w-full overflow-hidden flex flex-col select-none transition-colors duration-200 ${
+        dark ? 'bg-[#18181B] text-[#F3F4F8]' : 'bg-[#F3F4F6] text-[#1E1B2E]'
       }`}
     >
-      {/* Sağ Üst Köşe: Sade Dark Mode Butonu */}
-      <button
-        type="button"
-        onClick={() => setDark((d) => !d)}
-        className={`fixed top-4 right-5 z-30 flex items-center gap-2 px-3.5 py-2 rounded-full text-xs font-medium transition-all ${
-          dark
-            ? 'bg-[#2B2B2B] text-gray-200 hover:bg-[#333333] border border-white/10'
-            : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200/80 shadow-sm'
-        }`}
-        title={dark ? 'Açık Temaya Geç' : 'Koyu Temaya Geç'}
-      >
-        {dark ? (
-          <>
-            <svg className="w-4 h-4 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
-              />
-            </svg>
-            <span>Açık</span>
-          </>
-        ) : (
-          <>
-            <svg className="w-4 h-4 text-[#6D4AFF]" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"
-              />
-            </svg>
-            <span>Koyu</span>
-          </>
-        )}
-      </button>
+      <Titlebar dark={dark} onToggleTheme={() => setDark((d) => !d)} title="Strata — Giriş" />
+      <div className="relative flex-1 w-full flex items-center justify-center px-6 py-6 overflow-y-auto">
+      
 
       {/* Sadece Alt Dalga */}
       <svg
@@ -634,8 +603,10 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
           </button>
         </div>
       </div>
+      </div>
     </div>
   );
 };
 
 export default AuthScreen;
+

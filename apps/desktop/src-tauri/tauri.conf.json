@@ -1,10 +1,10 @@
 {
-  "$schema": "https://raw.githubusercontent.com/tauri-apps/tauri/refs/heads/v2/crates/tauri-cli/schema.json",
+  "$schema": "https://schema.tauri.app/config/2",
   "productName": "Strata",
   "version": "0.1.0",
-  "identifier": "chat.strata.desktop",
+  "identifier": "com.strata.desktop",
   "build": {
-    "beforeDevCommand": "pnpm dev:web",
+    "beforeDevCommand": "pnpm dev",
     "devUrl": "http://localhost:1420",
     "beforeBuildCommand": "pnpm build",
     "frontendDist": "../dist"
@@ -13,28 +13,17 @@
     "windows": [
       {
         "title": "Strata",
-        "width": 1280,
+        "width": 1200,
         "height": 800,
-        "minWidth": 960,
+        "minWidth": 900,
         "minHeight": 600,
-        "center": true,
-        "resizable": true,
-        "decorations": true
+        "decorations": false,
+        "resizable": true
       }
     ],
     "security": {
       "csp": null
     }
-  },
-  "bundle": {
-    "active": true,
-    "targets": "all",
-    "icon": [
-      "icons/32x32.png",
-      "icons/128x128.png",
-      "icons/128x128@2x.png",
-      "icons/icon.icns",
-      "icons/icon.ico"
-    ]
   }
 }
+

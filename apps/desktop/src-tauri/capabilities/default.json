@@ -1,16 +1,16 @@
 {
-  "$schema": "https://raw.githubusercontent.com/tauri-apps/tauri/refs/heads/v2/crates/tauri-cli/schema.json",
+  "$schema": "../gen/schemas/desktop-schema.json",
   "identifier": "default",
-  "description": "Default permissions for Strata Desktop",
+  "description": "Capability for the main window",
   "windows": ["main"],
   "permissions": [
     "core:default",
-    "core:window:allow-set-theme",
+    "core:window:allow-close",
     "core:window:allow-minimize",
     "core:window:allow-toggle-maximize",
-    "core:window:allow-close",
-    "core:window:allow-start-dragging",
-    "opener:default",
-    "notification:default"
+    "core:window:allow-set-decorations",
+    "core:window:allow-set-theme",
+    "core:window:allow-start-dragging"
   ]
 }
+

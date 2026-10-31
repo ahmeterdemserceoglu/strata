@@ -1,0 +1,33 @@
+{
+  "name": "strata-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Production-grade, distributed real-time communication platform",
+  "packageManager": "pnpm@12.16.1",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "scripts": {
+    "setup:dev": "node scripts/setup-dev.mjs",
+    "setup:supabase": "node scripts/setup-supabase.mjs",
+    "render:env": "node scripts/print-render-env.mjs",
+    "build": "turbo run build",
+    "dev": "turbo run dev --parallel",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "turbo run typecheck",
+    "lint": "turbo run lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "clean": "turbo run clean && rm -rf node_modules",
+    "sync:ver": "node scripts/export-kodlar.mjs",
+    "sync:al": "node scripts/apply-guncelleme.mjs",
+    "sync:izle": "node scripts/apply-guncelleme.mjs --watch"
+  },
+  "devDependencies": {
+    "prettier": "^3.4.2",
+    "turbo": "^2.3.3",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}
+

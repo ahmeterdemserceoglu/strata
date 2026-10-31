@@ -1,0 +1,35 @@
+﻿# Bağımlılıklar
+node_modules/
+.pnpm-store/
+
+# Derleme ve Çıktı Klasörleri
+dist/
+build/
+out/
+.turbo/
+*.tsbuildinfo
+
+# Tauri / Rust Derleme Dosyaları (Çok yer kaplar)
+**/src-tauri/target/
+**/src-tauri/WixTools/
+
+# Gizli Şifre ve Ortam Değişkenleri (KESİNLİKLE GİTHUB'A GİTMEMELİ)
+.env
+.env.*
+!.env.example
+packages/database/.env
+
+# Yerel Veriler ve Senkronizasyon Dosyaları
+.data/
+proje_kodlari.txt
+guncelleme*.txt
+strata-patch*.json
+
+# Loglar ve İşletim Sistemi
+*.log
+npm-debug.log*
+pnpm-debug.log*
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

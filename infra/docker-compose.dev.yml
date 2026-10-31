@@ -1,0 +1,121 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: strata-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: strata
+      POSTGRES_PASSWORD: strata_dev_password
+      POSTGRES_DB: strata_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U strata -d strata_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:7-alpine
+    container_name: strata-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  scylladb:
+    image: scylladb/scylla:6.2
+    container_name: strata-scylla
+    restart: unless-stopped
+    command: --smp 1 --memory 1024M --overprovisioned 1 --api-address 0.0.0.0
+    ports:
+      - "9042:9042"
+    volumes:
+      - scylla_data:/var/lib/scylla
+
+  minio:
+    image: minio/minio:RELEASE.2024-11-07T00-52-28Z
+    container_name: strata-minio
+    restart: unless-stopped
+    command: server /data --console-address ":9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    volumes:
+      - minio_data:/data
+
+  minio-init:
+    image: minio/mc:RELEASE.2024-11-05T11-41-28Z
+    depends_on:
+      - minio
+    entrypoint: >
+      /bin/sh -c "
+      sleep 2;
+      /usr/bin/mc alias set local http://minio:9000 minioadmin minioadmin;
+      /usr/bin/mc mb --ignore-existing local/strata-attachments;
+      /usr/bin/mc anonymous set download local/strata-attachments;
+      exit 0;
+      "
+
+  livekit:
+    image: livekit/livekit-server:v1.8
+    container_name: strata-livekit
+    restart: unless-stopped
+    command: --config /etc/livekit.yaml
+    ports:
+      - "7880:7880"
+      - "7881:7881"
+      - "50000-50050:50000-50050/udp"
+    volumes:
+      - ./livekit.dev.yaml:/etc/livekit.yaml
+
+  meilisearch:
+    image: getmeili/meilisearch:v1.12
+    container_name: strata-meilisearch
+    restart: unless-stopped
+    environment:
+      MEILI_MASTER_KEY: strata_master_search_key
+      MEILI_NO_ANALYTICS: "true"
+    ports:
+      - "7700:7700"
+    volumes:
+      - meili_data:/meili_data
+
+  imgproxy:
+    image: darthsim/imgproxy:v3.26
+    container_name: strata-imgproxy
+    restart: unless-stopped
+    environment:
+      IMGPROXY_BIND: ":8080"
+      IMGPROXY_MAX_SRC_RESOLUTION: 50
+    ports:
+      - "8080:8080"
+
+  mailpit:
+    image: axllent/mailpit:v1.21
+    container_name: strata-mailpit
+    restart: unless-stopped
+    ports:
+      - "1025:1025" # SMTP port
+      - "8025:8025" # Web UI
+    volumes:
+      - mailpit_data:/data
+
+volumes:
+  postgres_data:
+  redis_data:
+  scylla_data:
+  minio_data:
+  meili_data:
+  mailpit_data:

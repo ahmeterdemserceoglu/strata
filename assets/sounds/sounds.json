@@ -1,0 +1,125 @@
+{
+  "version": "1.0.0",
+  "description": "Strata ses efektleri manifestosu. Dosyalar assets/sounds altında yer alır.",
+  "sounds": [
+    {
+      "id": "voice_join",
+      "file": "voice_join.ogg",
+      "defaultVolume": 0.8,
+      "loop": false,
+      "description": "Ses kanalına bağlanma"
+    },
+    {
+      "id": "voice_leave",
+      "file": "voice_leave.ogg",
+      "defaultVolume": 0.8,
+      "loop": false,
+      "description": "Ses kanalından ayrılma"
+    },
+    {
+      "id": "user_join",
+      "file": "user_join.ogg",
+      "defaultVolume": 0.7,
+      "loop": false,
+      "description": "Kullanıcı katıldı"
+    },
+    {
+      "id": "user_leave",
+      "file": "user_leave.ogg",
+      "defaultVolume": 0.7,
+      "loop": false,
+      "description": "Kullanıcı ayrıldı"
+    },
+    {
+      "id": "mute",
+      "file": "mute.ogg",
+      "defaultVolume": 0.6,
+      "loop": false,
+      "description": "Mikrofon susturuldu"
+    },
+    {
+      "id": "unmute",
+      "file": "unmute.ogg",
+      "defaultVolume": 0.6,
+      "loop": false,
+      "description": "Susturma açıldı"
+    },
+    {
+      "id": "deafen",
+      "file": "deafen.ogg",
+      "defaultVolume": 0.6,
+      "loop": false,
+      "description": "Kulaklık kapatıldı"
+    },
+    {
+      "id": "undeafen",
+      "file": "undeafen.ogg",
+      "defaultVolume": 0.6,
+      "loop": false,
+      "description": "Kulaklık açıldı"
+    },
+    {
+      "id": "message",
+      "file": "message.ogg",
+      "defaultVolume": 0.5,
+      "loop": false,
+      "description": "Yeni mesaj bildirimi"
+    },
+    {
+      "id": "mention",
+      "file": "mention.ogg",
+      "defaultVolume": 0.8,
+      "loop": false,
+      "description": "Etiketleme bildirimi"
+    },
+    {
+      "id": "incoming_call",
+      "file": "incoming_call.ogg",
+      "defaultVolume": 0.9,
+      "loop": true,
+      "description": "Gelen çağrı sesi"
+    },
+    {
+      "id": "outgoing_call",
+      "file": "outgoing_call.ogg",
+      "defaultVolume": 0.8,
+      "loop": true,
+      "description": "Giden arama sesi"
+    },
+    {
+      "id": "stream_start",
+      "file": "stream_start.ogg",
+      "defaultVolume": 0.7,
+      "loop": false,
+      "description": "Yayın başladı"
+    },
+    {
+      "id": "stream_stop",
+      "file": "stream_stop.ogg",
+      "defaultVolume": 0.7,
+      "loop": false,
+      "description": "Yayın durdu"
+    },
+    {
+      "id": "ptt_on",
+      "file": "ptt_on.ogg",
+      "defaultVolume": 0.4,
+      "loop": false,
+      "description": "PTT basıldı"
+    },
+    {
+      "id": "ptt_off",
+      "file": "ptt_off.ogg",
+      "defaultVolume": 0.4,
+      "loop": false,
+      "description": "PTT bırakıldı"
+    },
+    {
+      "id": "disconnect",
+      "file": "disconnect.ogg",
+      "defaultVolume": 0.8,
+      "loop": false,
+      "description": "Bağlantı kesildi"
+    }
+  ]
+}

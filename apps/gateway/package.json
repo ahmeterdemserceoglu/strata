@@ -1,0 +1,30 @@
+{
+  "name": "@strata/gateway",
+  "version": "0.1.0",
+  "private": true,
+  "main": "./dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx watch src/index.ts",
+    "start": "node dist/index.js",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@strata/config": "workspace:*",
+    "@strata/protocol": "workspace:*",
+    "@strata/snowflake": "workspace:*",
+    "ioredis": "^5.5.0",
+    "jose": "^5.9.6",
+    "ws": "^8.18.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@strata/sdk": "workspace:*",
+    "@types/node": "^22.13.0",
+    "@types/ws": "^8.5.14",
+    "tsx": "^4.19.2",
+    "typescript": "^5.7.3",
+    "vitest": "^3.0.5"
+  }
+}

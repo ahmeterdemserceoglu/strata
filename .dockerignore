@@ -1,0 +1,11 @@
+node_modules
+**/node_modules
+**/dist
+**/target
+apps/desktop
+.git
+.env
+.data
+proje_kodlari.txt
+guncelleme.txt
+

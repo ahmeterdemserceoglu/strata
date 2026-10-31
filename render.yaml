@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: strata-api
+    runtime: docker
+    region: frankfurt
+    plan: free
+    healthCheckPath: /health/live
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: JWT_PRIVATE_KEY
+        sync: false
+      - key: JWT_PUBLIC_KEY
+        sync: false
+      - key: MFA_ENCRYPTION_KEY
+        sync: false
+

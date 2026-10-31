@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { getCurrentWindow } from '@tauri-apps/api/window';
 
 export interface AuthenticatedUser {
@@ -59,7 +59,7 @@ const PandaMascot: React.FC<{
   return (
     <div className="relative select-none flex justify-center -mb-6 z-20 pointer-events-none">
       <svg width="170" height="145" viewBox="0 0 200 165" fill="none" xmlns="http://www.w3.org/2000/svg">
-        {/* GÃ¶vde */}
+        {/* Gövde */}
         <ellipse cx="100" cy="145" rx="52" ry="30" fill="#FFFFFF" stroke={outlineColor} strokeWidth="4" />
 
         {/* Kafa Grubu */}
@@ -82,7 +82,7 @@ const PandaMascot: React.FC<{
           <ellipse cx="64" cy="88" rx="8" ry="4.5" fill="#FDA4AF" opacity="0.65" />
           <ellipse cx="136" cy="88" rx="8" ry="4.5" fill="#FDA4AF" opacity="0.65" />
 
-          {/* Sol GÃ¶z YamasÄ± */}
+          {/* Sol Göz Yaması */}
           <ellipse
             cx="77"
             cy="72"
@@ -91,7 +91,7 @@ const PandaMascot: React.FC<{
             transform="rotate(-10 77 72)"
             fill={patchColor}
           />
-          {/* SaÄŸ GÃ¶z YamasÄ± */}
+          {/* Sağ Göz Yaması */}
           <ellipse
             cx="123"
             cy="72"
@@ -101,7 +101,7 @@ const PandaMascot: React.FC<{
             fill={patchColor}
           />
 
-          {/* GÃ¶z Bebekleri */}
+          {/* Göz Bebekleri */}
           <g
             style={{
               transform: `translate(${eyeX}px, ${eyeY}px)`,
@@ -121,7 +121,7 @@ const PandaMascot: React.FC<{
           <ellipse cx="100" cy="86" rx="7" ry="5" fill={patchColor} />
           <ellipse cx="98.5" cy="84.5" rx="2.2" ry="1.2" fill="#FFFFFF" opacity="0.7" />
 
-          {/* AÄŸÄ±z */}
+          {/* Ağız */}
           <path
             d="M93 94 Q100 100 107 94"
             stroke={patchColor}
@@ -140,7 +140,7 @@ const PandaMascot: React.FC<{
           <circle cx="55" cy="120" r="2.5" fill={padColor} />
         </g>
 
-        {/* SaÄŸ Pati */}
+        {/* Sağ Pati */}
         <g style={rightHandStyle}>
           <ellipse cx="152" cy="132" rx="16" ry="22" fill={patchColor} />
           <circle cx="152" cy="128" r="5" fill={padColor} />
@@ -187,7 +187,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         .setTheme(dark ? 'dark' : 'light')
         .catch(() => {});
     } catch {
-      // TarayÄ±cÄ± ortamÄ±nda Tauri penceresi yoksa yoksay
+      // Tarayıcı ortamında Tauri penceresi yoksa yoksay
     }
   }, [dark]);
 
@@ -245,7 +245,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) {
-          throw new Error(extractErrorMessage(data, 'DoÄŸrulama kodu hatalÄ±.'));
+          throw new Error(extractErrorMessage(data, 'Doğrulama kodu hatalı.'));
         }
         notifySuccess(data);
         return;
@@ -278,7 +278,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
 
       const data = await res.json().catch(() => ({}));
       if (!res.ok) {
-        throw new Error(extractErrorMessage(data, 'Ä°ÅŸlem baÅŸarÄ±sÄ±z oldu.'));
+        throw new Error(extractErrorMessage(data, 'İşlem başarısız oldu.'));
       }
 
       const ticket = data.mfaTicket || data.ticket;
@@ -293,9 +293,9 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
       const msg =
         err instanceof Error
           ? err.message === 'Failed to fetch'
-            ? 'API sunucusuna baÄŸlanÄ±lamadÄ± (strata-api-fy4r.onrender.com). LÃ¼tfen `pnpm dev` komutunun Ã§alÄ±ÅŸtÄ±ÄŸÄ±ndan emin olun.'
+            ? 'Bulut API sunucusuna bağlanılamadı (strata-api-fy4r.onrender.com). Sunucu uyanıyor olabilir, lütfen 10 saniye sonra tekrar deneyin.'
             : err.message
-          : 'Beklenmeyen bir hata oluÅŸtu.';
+          : 'Beklenmeyen bir hata oluştu.';
       setError(msg);
     } finally {
       setLoading(false);
@@ -308,7 +308,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         dark ? 'bg-[#202020] text-[#F3F4F8]' : 'bg-[#F3F3F3] text-[#1E1B2E]'
       }`}
     >
-      {/* SaÄŸ Ãœst KÃ¶ÅŸe: Sade Dark Mode Butonu */}
+      {/* Sağ Üst Köşe: Sade Dark Mode Butonu */}
       <button
         type="button"
         onClick={() => setDark((d) => !d)}
@@ -317,7 +317,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
             ? 'bg-[#2B2B2B] text-gray-200 hover:bg-[#333333] border border-white/10'
             : 'bg-white text-gray-700 hover:bg-gray-50 border border-gray-200/80 shadow-sm'
         }`}
-        title={dark ? 'AÃ§Ä±k Temaya GeÃ§' : 'Koyu Temaya GeÃ§'}
+        title={dark ? 'Açık Temaya Geç' : 'Koyu Temaya Geç'}
       >
         {dark ? (
           <>
@@ -328,7 +328,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"
               />
             </svg>
-            <span>AÃ§Ä±k</span>
+            <span>Açık</span>
           </>
         ) : (
           <>
@@ -367,7 +367,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
         </defs>
       </svg>
 
-      {/* Ana Ä°Ã§erik */}
+      {/* Ana İçerik */}
       <div className="relative z-10 w-full max-w-4xl flex flex-col md:flex-row items-center justify-center gap-12 md:gap-20">
         {/* Sol Taraf: Panda + Kart */}
         <div className="w-full max-w-[360px] flex flex-col items-center">
@@ -385,7 +385,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 dark ? 'text-white' : 'text-[#1E1B2E]'
               }`}
             >
-              {mfaTicket ? 'Ä°ki AÅŸamalÄ± DoÄŸrulama' : mode === 'login' ? 'GiriÅŸ Yap' : 'KayÄ±t Ol'}
+              {mfaTicket ? 'İki Aşamalı Doğrulama' : mode === 'login' ? 'Giriş Yap' : 'Kayıt Ol'}
             </h2>
 
             {error && (
@@ -408,7 +408,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                       dark ? 'text-gray-400' : 'text-gray-500'
                     }`}
                   >
-                    6 Haneli DoÄŸrulama Kodu
+                    6 Haneli Doğrulama Kodu
                   </label>
                   <input
                     type="text"
@@ -429,14 +429,14 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 </div>
               ) : (
                 <>
-                  {/* KullanÄ±cÄ± AdÄ± */}
+                  {/* Kullanıcı Adı */}
                   <div>
                     <label
                       className={`block text-xs font-semibold mb-1 ${
                         dark ? 'text-gray-400' : 'text-gray-500'
                       }`}
                     >
-                      {mode === 'login' ? 'KullanÄ±cÄ± AdÄ± veya E-posta' : 'KullanÄ±cÄ± AdÄ±'}
+                      {mode === 'login' ? 'Kullanıcı Adı veya E-posta' : 'Kullanıcı Adı'}
                     </label>
                     <input
                       type="text"
@@ -460,7 +460,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                     />
                   </div>
 
-                  {/* GÃ¶rÃ¼nen Ad & E-posta (Sadece KayÄ±t) */}
+                  {/* Görünen Ad & E-posta (Sadece Kayıt) */}
                   {mode === 'register' && (
                     <>
                       <div>
@@ -469,7 +469,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                             dark ? 'text-gray-400' : 'text-gray-500'
                           }`}
                         >
-                          GÃ¶rÃ¼nen Ad (Ä°steÄŸe BaÄŸlÄ±)
+                          Görünen Ad (İsteğe Bağlı)
                         </label>
                         <input
                           type="text"
@@ -512,14 +512,14 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                     </>
                   )}
 
-                  {/* Åifre */}
+                  {/* Şifre */}
                   <div>
                     <label
                       className={`block text-xs font-semibold mb-1 ${
                         dark ? 'text-gray-400' : 'text-gray-500'
                       }`}
                     >
-                      Åifre {mode === 'register' && <span className="text-[10px] opacity-70">(En az 8 karakter)</span>}
+                      Şifre {mode === 'register' && <span className="text-[10px] opacity-70">(En az 8 karakter)</span>}
                     </label>
                     <div className="relative">
                       <input
@@ -529,7 +529,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                         onFocus={() => setActiveField('password')}
                         onBlur={() => setActiveField('none')}
                         onChange={(e) => setPassword(e.target.value)}
-                        placeholder="â€¢â€¢â€¢â€¢â€¢â€¢â€¢â€¢"
+                        placeholder="••••••••"
                         className={`w-full bg-transparent border-b-2 py-2 pr-8 text-sm outline-none transition-colors ${
                           dark
                             ? 'border-white/15 focus:border-[#7C5CFF] text-white placeholder-gray-500'
@@ -548,7 +548,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                         className={`absolute right-0 top-1/2 -translate-y-1/2 p-1 transition-colors ${
                           dark ? 'text-gray-400 hover:text-[#7C5CFF]' : 'text-gray-400 hover:text-[#6D4AFF]'
                         }`}
-                        title={showPassword ? 'Åifreyi Gizle' : 'Åifreyi GÃ¶ster'}
+                        title={showPassword ? 'Şifreyi Gizle' : 'Şifreyi Göster'}
                       >
                         {showPassword ? (
                           <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -574,7 +574,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                 </>
               )}
 
-              {/* GÃ¶nder Butonu */}
+              {/* Gönder Butonu */}
               <div className="pt-3 flex flex-col items-center gap-3">
                 <button
                   type="submit"
@@ -584,10 +584,10 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                   {loading
                     ? 'Bekleyin...'
                     : mfaTicket
-                    ? 'DoÄŸrula'
+                    ? 'Doğrula'
                     : mode === 'login'
-                    ? 'GiriÅŸ Yap'
-                    : 'KayÄ±t Ol'}
+                    ? 'Giriş Yap'
+                    : 'Kayıt Ol'}
                 </button>
 
                 {mfaTicket && (
@@ -599,7 +599,7 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
                     }}
                     className="text-xs text-gray-400 hover:text-[#6D4AFF] transition-colors"
                   >
-                    Geri DÃ¶n
+                    Geri Dön
                   </button>
                 )}
               </div>
@@ -607,14 +607,14 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
           </div>
         </div>
 
-        {/* SaÄŸ Taraf: HoÅŸ Geldin & KayÄ±t Ol / GiriÅŸ Yap GeÃ§iÅŸi */}
+        {/* Sağ Taraf: Hoş Geldin & Kayıt Ol / Giriş Yap Geçişi */}
         <div className="text-center md:text-left max-w-xs">
           <h1
             className={`text-3xl md:text-4xl font-extrabold mb-3 ${
               dark ? 'text-white' : 'text-[#1E1B2E]'
             }`}
           >
-            HoÅŸ Geldin!
+            Hoş Geldin!
           </h1>
           <p
             className={`text-sm mb-6 leading-relaxed ${
@@ -622,15 +622,15 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
             }`}
           >
             {mode === 'login'
-              ? 'HenÃ¼z bir hesabÄ±n yok mu? Hemen Ã¼cretsiz hesap oluÅŸtur ve topluluÄŸa katÄ±l.'
-              : 'Zaten bir hesabÄ±n var mÄ±? Bilgilerinle hemen giriÅŸ yapabilirsin.'}
+              ? 'Henüz bir hesabın yok mu? Hemen ücretsiz hesap oluştur ve topluluğa katıl.'
+              : 'Zaten bir hesabın var mı? Bilgilerinle hemen giriş yapabilirsin.'}
           </p>
           <button
             type="button"
             onClick={() => switchMode(mode === 'login' ? 'register' : 'login')}
             className="px-8 py-2.5 rounded-full bg-gradient-to-r from-[#6D4AFF] to-[#5433FF] hover:opacity-95 active:scale-[0.98] text-white text-sm font-semibold shadow-md shadow-[#6D4AFF]/25 transition-all"
           >
-            {mode === 'login' ? 'KayÄ±t Ol' : 'GiriÅŸ Yap'}
+            {mode === 'login' ? 'Kayıt Ol' : 'Giriş Yap'}
           </button>
         </div>
       </div>
@@ -639,5 +639,3 @@ export const AuthScreen: React.FC<AuthScreenProps> = ({
 };
 
 export default AuthScreen;
-
-
